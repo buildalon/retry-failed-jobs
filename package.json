@@ -1,24 +1,25 @@
 {
-  "name": "github-action-template",
-  "version": "2.0.0",
-  "description": "A GitHub Actions template repository for TypeScript based Actions.",
-  "author": "RageAgainstThePixel",
+  "name": "retry-failed-jobs",
+  "version": "1.0.0",
+  "description": "A GitHub Action to rerun the failed jobs of a finished workflow run when every failure is marked as retryable.",
+  "author": "buildalon",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/RageAgainstThePixel/github-action-template.git"
+    "url": "git+https://github.com/buildalon/retry-failed-jobs.git"
   },
   "bugs": {
-    "url": "https://github.com/RageAgainstThePixel/github-action-template/issues"
+    "url": "https://github.com/buildalon/retry-failed-jobs/issues"
   },
-  "homepage": "https://github.com/RageAgainstThePixel/github-action-template",
+  "homepage": "https://github.com/buildalon/retry-failed-jobs",
   "main": "dist/index.js",
   "engines": {
     "node": ">=24"
   },
   "keywords": [],
   "dependencies": {
-    "@actions/core": "^3.0.1"
+    "@actions/core": "^3.0.1",
+    "@actions/github": "^9.1.1"
   },
   "devDependencies": {
     "@types/node": "^24.12.2",

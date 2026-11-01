@@ -1,8 +1,37 @@
-name: github-action-template
-description: 'A GitHub Actions template repository for TypeScript based Actions'
-# inputs:
-# outputs:
+name: 'Buildalon Retry Failed Jobs'
+description: 'A GitHub Action to rerun the failed jobs of a finished workflow run when every failure is marked as retryable.'
+branding:
+  icon: 'refresh-cw'
+  color: 'red'
+inputs:
+  markers:
+    description: 'Comma-separated annotation titles that mark a failure as retryable.'
+    required: true
+  run-id:
+    description: 'The finished run to check. Defaults to the run of a workflow_run event.'
+    required: false
+  run-attempt:
+    description: 'The attempt of that run that finished. Defaults to the attempt of a workflow_run event.'
+    required: false
+  max-attempts:
+    description: 'The last attempt that may be rerun; later attempts are left failed.'
+    required: false
+    default: '3'
+  ignore-jobs:
+    description: "Comma-separated names of jobs that only report other jobs' results, such as an aggregate check."
+    required: false
+    default: ''
+  delay-seconds:
+    description: 'Seconds to wait before the rerun, such as for a shared resource to be released.'
+    required: false
+    default: '0'
+  github-token:
+    description: 'Token with actions: write and checks: read on the repository.'
+    required: false
+    default: ${{ github.token }}
+outputs:
+  rerun:
+    description: 'true when the failed jobs were rerun.'
 runs:
   using: 'node24'
   main: 'dist/index.js'
-  post: 'dist/index.js'

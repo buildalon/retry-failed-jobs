@@ -13,11 +13,23 @@ jobs:
     runs-on: ${{ matrix.os }}
     permissions:
       contents: read
+      actions: read
+      checks: read
     strategy:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
     steps:
       - uses: actions/checkout@v6
+      # the run is still in progress, so it has no failed jobs and nothing is rerun
       - uses: ./
-        name: RageAgainstThePixel/github-action-template
+        id: rerun
+        name: buildalon/retry-failed-jobs
+        with:
+          run-id: ${{ github.run_id }}
+          run-attempt: ${{ github.run_attempt }}
+          markers: transient-failure
+      - name: Check output
+        shell: pwsh
+        run: |
+          if ('${{ steps.rerun.outputs.rerun }}' -ne 'false') { throw "expected rerun=false, got '${{ steps.rerun.outputs.rerun }}'" }
